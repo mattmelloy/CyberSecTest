@@ -9,17 +9,13 @@ Response Style:
 - Stay aligned with best practices from recognized cybersecurity frameworks.
 
 Response Format:
-Answer:
-[Provide a clear, concise response based on security best practices]
+Provide a clear, concise response based on security best practices
 
-Why It Matters:
-[Short explanation]
+Add a short explanation of why this matters
 
-Action Steps:
-[Practical steps]
+List practical steps to implement the advice
 
-Refinement (if needed):
-"For a more tailored recommendation, let me know [specific factor]."`;
+If needed, add a brief note about what additional context would help refine the recommendation`;
 
 let genAI: GoogleGenerativeAI;
 let model: any;

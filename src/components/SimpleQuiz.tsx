@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { QuizQuestion, Answer, QuizResult } from '../types';
-import { quizQuestions } from '../data/simpleQuiz';
+import { assessmentQuestions } from '../data/simpleQuiz';
 import { ArrowLeft, ArrowRight, Download, AlertCircle } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import { PieChart, Pie, Cell } from 'recharts';
 
 export default function SimpleQuiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<number[]>(Array(quizQuestions.length).fill(-1));
+  const [answers, setAnswers] = useState<number[]>(Array(assessmentQuestions.length).fill(-1));
   const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<QuizResult | null>(null);
 
@@ -16,13 +16,13 @@ export default function SimpleQuiz() {
     newAnswers[currentQuestion] = answerIndex;
     setAnswers(newAnswers);
 
-    if (currentQuestion < quizQuestions.length - 1) {
+    if (currentQuestion < assessmentQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     }
   };
 
   const handleNext = () => {
-    if (currentQuestion < quizQuestions.length - 1) {
+    if (currentQuestion < assessmentQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else if (answers.every(a => a !== -1)) {
       calculateResults(answers);
@@ -39,7 +39,7 @@ export default function SimpleQuiz() {
       feedback: string;
     }> = [];
 
-    quizQuestions.forEach((question, index) => {
+    assessmentQuestions.forEach((question, index) => {
       const answerIndex = finalAnswers[index];
       if (answerIndex !== -1) {
         const answer = question.answers[answerIndex];
@@ -83,7 +83,7 @@ export default function SimpleQuiz() {
     doc.addFont('helvetica', 'bold');
     doc.setTextColor(0, 102, 204); // Blue color for header
     doc.setFontSize(28);
-    doc.text('CyberSec Test', pageWidth / 2, yPosition, { align: 'center' });
+    doc.text('Cybersecurity Assessment', pageWidth / 2, yPosition, { align: 'center' });
     yPosition += lineHeight * 2;
 
     doc.setFontSize(14);
@@ -291,7 +291,7 @@ export default function SimpleQuiz() {
     );
   }
 
-  const question = quizQuestions[currentQuestion];
+  const question = assessmentQuestions[currentQuestion];
   const currentAnswer = answers[currentQuestion];
 
   return (
@@ -300,7 +300,7 @@ export default function SimpleQuiz() {
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-sm font-medium text-gray-600">
-              Question {currentQuestion + 1} of {quizQuestions.length}
+              Question {currentQuestion + 1} of {assessmentQuestions.length}
             </h2>
             <span className="text-sm font-medium text-gray-600">
               {question.category}
@@ -309,7 +309,7 @@ export default function SimpleQuiz() {
           <div className="w-full bg-gray-200 rounded-full h-2.5">
             <div
               className="bg-blue-600 h-2.5 rounded-full"
-              style={{ width: `${((currentQuestion + 1) / quizQuestions.length) * 100}%` }}
+              style={{ width: `${((currentQuestion + 1) / assessmentQuestions.length) * 100}%` }}
             ></div>
           </div>
         </div>
@@ -346,9 +346,9 @@ export default function SimpleQuiz() {
             Previous
           </button>
           <div className="text-gray-600">
-            {currentQuestion + 1} / {quizQuestions.length}
+            {currentQuestion + 1} / {assessmentQuestions.length}
           </div>
-          {currentQuestion === quizQuestions.length - 1 && answers.every(a => a !== -1) ? (
+          {currentQuestion === assessmentQuestions.length - 1 && answers.every(a => a !== -1) ? (
             <button
               onClick={() => calculateResults(answers)}
               className="flex items-center justify-center bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"

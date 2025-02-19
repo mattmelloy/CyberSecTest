@@ -1,6 +1,6 @@
 import { QuizQuestion } from '../types';
 
-export const quizQuestions: QuizQuestion[] = [
+export const assessmentQuestions: QuizQuestion[] = [
   {
     id: 1,
     category: "Software Updates",
