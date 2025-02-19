@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Shield, FileCheck2, MessageSquareText } from 'lucide-react';
 import SimpleQuiz from './components/SimpleQuiz';
 import ComingSoon from './components/ComingSoon';
+import AIChat from './components/AIChat';
 import AdUnit from './components/AdUnit';
 
 function App() {
@@ -49,7 +50,7 @@ function App() {
   }
 
   if (currentTool === 'chat') {
-    return <ComingSoon title="AI Security Chat" onBack={() => setCurrentTool('home')} />;
+    return <AIChat onBack={() => setCurrentTool('home')} />;
   }
 
   return (
