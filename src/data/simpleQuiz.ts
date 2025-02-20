@@ -9,12 +9,12 @@ export const assessmentQuestions: QuizQuestion[] = [
       {
         text: "A) As soon as updates are available.",
         points: 6.1,
-        feedback: "Great job! Keeping operating systems updated as soon as updates are available is a crucial security practice. Regular updates help patch vulnerabilities that cybercriminals could exploit. Ensure that all devices are configured for automatic updates where possible and regularly verify that updates are being applied successfully."
+        feedback: "Great job! Keeping operating systems updated as soon as updates are available is a crucial security practice. Regular updates help patch vulnerabilities that cybercriminals could exploit. To make this easier to maintain, ensure that all devices are configured for automatic updates where possible and regularly verify that updates are being applied successfully."
       },
       {
         text: "B) Whenever I remember or have time, usually every few months.",
         points: 3.66,
-        feedback: "Needs Improvement. While updating your systems occasionally is better than not updating at all, delaying patches increases the risk of cyber threats. Many security vulnerabilities are actively exploited soon after they are discovered. Aim to apply updates as soon as they become available by enabling automatic updates or setting a routine schedule to check for updates at least weekly."
+        feedback: "Good, but needs improvement. While updating your systems occasionally is better than not updating at all, delaying patches increases the risk of cyber threats. Many security vulnerabilities are actively exploited soon after they are discovered. Aim to apply updates as soon as they become available by enabling automatic updates or setting a routine schedule to check for updates at least weekly."
       },
       {
         text: "C) Hardly ever, unless there is s a problem or it forces me to update.",
@@ -41,12 +41,12 @@ export const assessmentQuestions: QuizQuestion[] = [
       {
         text: "B) Whenever I remember or have time, usually every few months.",
         points: 3.66,
-        feedback: "Needs Improvement. While some updates are being applied, delaying them increases security risks. Attackers often exploit vulnerabilities in outdated software, especially commonly used applications like web browsers and document readers. Set a monthly or weekly reminder to check for updates or enable automatic updates where possible."
+        feedback: "Good but can be improvement. Attackers often exploit vulnerabilities in outdated software, especially commonly used applications like web browsers and document readers. While some updates are being applied, delaying them increases security risks. Set a monthly or weekly reminder to check for updates or enable automatic updates where possible."
       },
       {
         text: "C) Hardly ever, unless there is a problem or it forces me to update.",
         points: 1.22,
-        feedback: "High Risk! Outdated applications are a major security vulnerability, as they often contain unpatched weaknesses that hackers can exploit. Many cyberattacks begin by targeting weaknesses in third-party software. To improve security, enable automatic updates on all applications and regularly verify that software is up to date. Consider using a patch management tool to help automate this process."
+        feedback: "High Risk! Outdated applications are one of the main entry points for hackers! To improve security, enable automatic updates on all applications where possible and regularly verify that software is up to date. Removing software not needed can also reduce your risk. If you have a lot of computers, consider using a patch management tool to help automate this process."
       },
       {
         text: "D) I am not sure.",
@@ -68,12 +68,12 @@ export const assessmentQuestions: QuizQuestion[] = [
       {
         text: "B) We write them down or save them in a file on the computer.",
         points: 2.2,
-        feedback: "Risky Practice. Storing passwords in unprotected files or writing them down increases the risk of them being stolen or exposed. Cybercriminals often look for saved passwords on compromised devices. Consider transitioning to a secure password manager to store credentials safely. If you must record passwords temporarily, ensure they are encrypted and access is restricted."
+        feedback: "Risky Practice. Storing passwords in unprotected files or writing them down increases the risk of them being stolen or exposed. Cybercriminals often look for saved passwords on compromised devices. Consider transitioning to a secure password manager to store credentials safely. Password managers also help to increase password complexity and reduce password re-use. If you must record passwords temporarily, ensure they are encrypted and access is restricted."
       },
       {
         text: "C) We try to remember them or share them over email or messaging.",
         points: 0.0,
-        feedback: "High Risk! Relying on memory often leads to weak or reused passwords, which increases the risk of cyberattacks. Sharing passwords via email or messaging apps also exposes them to interception or leaks. Instead, use a password manager to securely store and share passwords when necessary. Implement multi-factor authentication (MFA) to add an extra layer of security."
+        feedback: "High Risk! Relying on memory often leads to weak or reused passwords, which increases the risk of cyberattacks. Sharing passwords via email or messaging apps also exposes them to interception or leaks. Instead, use a password manager to securely store and share passwords when necessary. Password managers also help to increase password complexity and reduce password re-use. Implement multi-factor authentication (MFA) to add an extra layer of security."
       },
       {
         text: "D) I do not know.",
@@ -95,7 +95,7 @@ export const assessmentQuestions: QuizQuestion[] = [
       {
         text: "B) Sometimes, but some accounts share the same password.",
         points: 1.46,
-        feedback: "Moderate Risk. While having strong passwords is good, reusing passwords across multiple accounts is dangerous. If one account is compromised, attackers can use the same password to access others. Start by updating your most critical accounts (e.g., email, banking, cloud services) with unique passwords, and use a password manager to help keep track of them. Enabling MFA adds another layer of security."
+        feedback: "Moderate Risk. While having strong passwords is good, reusing passwords across multiple accounts is dangerous. If one account is compromised, attackers can use the same password to access others. Start by updating your most critical accounts (e.g., email, banking, cloud services) with unique passwords, and use a password manager to help keep track of them. Password managers also help to increase password complexity and reduce password re-use. Enabling MFA adds another layer of security."
       },
       {
         text: "C) No, we reuse the same password for many accounts.",
@@ -105,34 +105,34 @@ export const assessmentQuestions: QuizQuestion[] = [
       {
         text: "D) I do not know.",
         points: 0.73,
-        feedback: "Time to Investigate. If you are unsure about your password practices, your business may be at risk. Conduct a password audit to check if passwords are being reused or stored insecurely. Encourage employees to use a password manager to create and store unique passwords securely. Enable MFA for extra protection and consider cybersecurity awareness training to improve password hygiene across the business."
+        feedback: "Time to Investigate. If you are unsure about your password practices, your business is at risk. Conduct a password audit to check if passwords are being reused or stored insecurely. Encourage employees to use a password manager to create and store unique passwords securely. Enable MFA for extra protection and consider cybersecurity awareness training to improve password hygiene across the business."
       }
     ]
   },
   {
     id: 5,
     category: "Multi-Factor Authentication (MFA)",
-    question: "Do you use an additional security (MFA) for all online accounts such as code sent to your phone?",
+    question: "Do you use an additional security (MFA) for all online accounts such as a code sent to your phone?",
     answers: [
       {
         text: "A) Yes, we use this for all important accounts.",
         points: 12.2,
-        feedback: "Well done! Multi-Factor Authentication (MFA) is one of the best ways to protect accounts from unauthorized access. Even if a password is stolen, MFA adds an extra layer of security by requiring a second verification step, such as a code sent to your phone or an authentication app. Keep reviewing your accounts to ensure MFA is enabled everywhere possible, especially for email, banking, and cloud services."
+        feedback: "Well done! Multi-Factor Authentication (MFA) is the number one way to protect accounts from unauthorized access. Even if a password is stolen, MFA adds an extra layer of security by requiring a second verification step, such as a code sent to your phone or an authentication app. Keep reviewing your accounts to ensure MFA is enabled everywhere possible, especially for email, banking, and cloud services."
       },
       {
         text: "B) Sometimes, but not for everything.",
         points: 4.88,
-        feedback: "Needs Improvement. Using MFA on some accounts is a good start, but leaving other accounts unprotected creates a weak link in your security. Cybercriminals often target email accounts first, which can be used to reset passwords for other services. Aim to enable MFA on all critical accounts, including email, cloud storage, and financial services, and consider expanding it to other business accounts as well."
+        feedback: "Needs Improvement. Using MFA on some important accounts is a good start, but leaving other accounts unprotected creates a weak link in your security. Cybercriminals commonly target email accounts, which can be used to reset passwords for other services. Password crackers are also a frequently used tool amoungst hackets. Aim to enable MFA on all critical accounts, including email, cloud storage, and financial services, and consider expanding it to other business accounts as well."
       },
       {
         text: "C) No, we just use passwords. Phone and email codes are annoying.",
         points: 0.0,
-        feedback: "High Risk! While extra authentication steps can be inconvenient, MFA significantly reduces the risk of account breaches. Passwords alone are not enough, as they can be stolen, guessed, or leaked in data breaches. Enabling MFA makes it much harder for attackers to gain access to your accounts. Action Needed: Start by enabling MFA on your most sensitive accounts (email, financial accounts, and business-critical systems), then gradually expand it to other services."
+        feedback: "High Risk! While extra authentication steps can be inconvenient, MFA significantly reduces the risk of account breaches. Passwords alone are not enough, as they can be stolen, guessed, or leaked in data breaches. Enabling MFA makes it much harder for attackers to gain access to your accounts. Urgent Action Needed: Start by enabling MFA on your most sensitive accounts (email, financial accounts, and business-critical systems), then gradually expand it to other services. If you're only going to take one action, make it this one!"
       },
       {
         text: "D) I am not sure.",
         points: 2.44,
-        feedback: "Time to Check. If you are unsure whether MFA is enabled, it is important to find out. Check your email, financial accounts, and cloud services to see if MFA is turned on. If not, enable it as soon as possible. Encourage employees to do the same, as MFA is a simple yet powerful way to protect against cyber threats."
+        feedback: "Time to Check. If you are unsure whether MFA is enabled, it is important to find out. Check your email, financial accounts, and cloud services to see if MFA is turned on. If not, enable it as soon as possible. Develop company polocies to ensure employees to do the same, as MFA is a simple yet powerful way to protect against cyber threats."
       }
     ]
   },

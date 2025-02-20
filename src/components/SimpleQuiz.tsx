@@ -323,7 +323,9 @@ export default function SimpleQuiz() {
                   Our Cybersecurity Advisor is here to help you understand your assessment and provide guidance on implementing improvements.
                 </p>
                 <a
-                  href="/advisor"
+                  href="https://cybersectest.com/advisor"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
                 >
                   Chat with Advisor

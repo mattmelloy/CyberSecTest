@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Shield, FileCheck2, MessageSquareText, ChevronDown, AlertCircle, CheckCircle2, ArrowRight, LockKeyhole, Users, Zap } from 'lucide-react';
 import SimpleQuiz from './components/SimpleQuiz';
-import ComingSoon from './components/ComingSoon';
+import AdvancedQuiz from './components/AdvancedQuiz';
 import SecurityAdvisor from './components/SecurityAdvisor';
 import AdUnit from './components/AdUnit';
 import PrivacyPolicy from './components/PrivacyPolicy';
@@ -69,7 +69,40 @@ function App() {
   }
 
   if (currentPage === 'advanced-assessment') {
-    return <ComingSoon title="Advanced Security Assessment" onBack={() => setCurrentPage('home')} />;
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+        <header className="bg-white shadow-sm mb-8">
+          <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+            <button
+              onClick={() => setCurrentPage('home')}
+              className="text-blue-600 hover:text-blue-800 flex items-center"
+            >
+              ← Back to Home
+            </button>
+          </div>
+        </header>
+        <div className="flex">
+          {/* Left sidebar ad */}
+          <div className="hidden lg:block w-[160px] min-h-screen">
+            <div className="sticky top-4">
+              <AdUnit slot="advanced-assessment-left-sidebar" className="w-[160px] h-[600px]" />
+            </div>
+          </div>
+          
+          {/* Main content */}
+          <div className="flex-1">
+            <AdvancedQuiz />
+          </div>
+          
+          {/* Right sidebar ad */}
+          <div className="hidden lg:block w-[160px] min-h-screen">
+            <div className="sticky top-4">
+              <AdUnit slot="advanced-assessment-right-sidebar" className="w-[160px] h-[600px]" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (currentPage === 'advisor') {
@@ -100,7 +133,7 @@ function App() {
           <div className="text-center">
             <h1 className="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">
               Assess Your Cybersecurity
-              <span className="text-blue-200"> Posture Instantly and Free</span>
+              <span className="text-blue-200"> Posture in 5 Minutes and Free</span>
             </h1>
             <p className="mt-3 max-w-md mx-auto text-base text-gray-100 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
               Empowering small businesses with fast, actionable insights—no personal data stored, ever.
@@ -113,7 +146,7 @@ function App() {
                 Start Your Free Assessment
               </button>
               <p className="text-sm text-gray-200 font-bold">
-                No lengthy forms. No stored data. Just real-time insights to secure your business.
+                It's time to understand your business risks and how you can prevent being hacked!
               </p>
             </div>
           </div>
@@ -149,7 +182,7 @@ function App() {
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Complete the Assessment</h3>
                 <p className="text-gray-600">
-                  Answer a few straightforward questions about your current security practices.
+                  Answer 10 straightforward questions about your current security practices.
                 </p>
               </div>
               <div className="text-center">
@@ -183,10 +216,10 @@ function App() {
                 <Shield className="w-6 h-6 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Basic Security Assessment
+                Simple Security Assessment
               </h3>
               <p className="text-gray-600 mb-4">
-                A quick 10-question assessment to evaluate your basic cybersecurity practices.
+                A 5 minute 10-question assessment to evaluate your basic cybersecurity practices.
               </p>
               <button
                 onClick={() => setCurrentPage('simple-assessment')}
@@ -204,10 +237,10 @@ function App() {
                 <FileCheck2 className="w-6 h-6 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Advanced Security Assessment
+                NIST 800-53 Assessment
               </h3>
               <p className="text-gray-600 mb-4">
-                Detailed assessment based on NIST framework for IT professionals.
+                Detailed assessment based on NIST 800-53 framework for IT professionals.
               </p>
               <button
                 onClick={() => setCurrentPage('advanced-assessment')}
@@ -234,7 +267,7 @@ function App() {
                 onClick={() => setCurrentPage('advisor')}
                 className="w-full bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300"
               >
-                Get Guidance
+                Start Chatting Now
               </button>
             </div>
           </div>
@@ -324,7 +357,7 @@ function App() {
                 <Users className="w-6 h-6 text-yellow-600" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Trusted by Small Business Owners Nationwide</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Trusted by Small Business Owners Worldwide</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <p className="text-gray-700 italic mb-4">
@@ -334,9 +367,9 @@ function App() {
                   </div>
                   <div className="bg-gray-50 p-6 rounded-lg">
                     <p className="text-gray-700 italic mb-4">
-                      "I appreciated that no sensitive data was stored. The recommendations were spot-on and easy to implement."
+                      "I appreciated that no sensitive data was stored. The recommendations were spot-on and easy to implement with assistance from by IT provider."
                     </p>
-                    <p className="text-gray-900 font-medium">— Jamie L., IT Manager</p>
+                    <p className="text-gray-900 font-medium">— Jamie L., Medical Practice Manager</p>
                   </div>
                 </div>
               </div>
