@@ -248,15 +248,17 @@ function App() {
             </div>
           </div>
         </div>
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator with accessibility improvements */}
         <button
           onClick={scrollToTools}
           className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 transition-opacity duration-500 ${
             showScrollIndicator ? 'opacity-100' : 'opacity-0'
           }`}
+          aria-label="Scroll to assessment tools"
+          role="button"
         >
           <div className="animate-bounce bg-white/20 p-2 rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors">
-            <ChevronDown className="w-6 h-6 text-white" />
+            <ChevronDown className="w-6 h-6 text-white" aria-hidden="true" />
           </div>
         </button>
       </header>
