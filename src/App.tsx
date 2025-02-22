@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Shield, FileCheck2, MessageSquareText, ChevronDown, AlertCircle, CheckCircle2, ArrowRight, LockKeyhole, Users, Zap } from 'lucide-react';
+import { Shield, FileCheck2, MessageSquareText, ChevronDown, AlertCircle, CheckCircle2, ArrowRight, Users, Zap, AlertOctagon, DollarSign, Target, ChevronRight } from 'lucide-react';
 import SimpleQuiz from './components/SimpleQuiz';
 import AdvancedQuiz from './components/AdvancedQuiz';
 import SecurityAdvisor from './components/SecurityAdvisor';
@@ -9,9 +9,102 @@ import TermsOfService from './components/TermsOfService';
 
 type Page = 'home' | 'simple-assessment' | 'advanced-assessment' | 'advisor' | 'privacy-policy' | 'terms';
 
+interface FAQ {
+  question: string;
+  answer: {
+    text: string;
+    advice: string;
+    recommendation: string;
+  };
+}
+
+const faqs: FAQ[] = [
+  {
+    question: "What are the most common cybersecurity risks for small businesses?",
+    answer: {
+      text: "Common risks include phishing scams, ransomware, weak passwords, and unpatched software.",
+      advice: "Regularly train staff, use strong passwords with multi-factor authentication, and keep software updated.",
+      recommendation: "Consider security suites like Bitdefender or Norton for comprehensive protection."
+    }
+  },
+  {
+    question: "How can I protect my business from phishing attacks?",
+    answer: {
+      text: "Phishing attacks use deceptive emails to steal sensitive information.",
+      advice: "Educate employees to verify senders, use spam filters, and run regular simulated phishing tests.",
+      recommendation: "Tools such as Barracuda Email Security can help filter out suspicious emails."
+    }
+  },
+  {
+    question: "Do I need antivirus software for my small business?",
+    answer: {
+      text: "Yes, antivirus software helps detect and block malicious software before it causes harm.",
+      advice: "Install reputable antivirus software on all devices and update it regularly.",
+      recommendation: "Products like McAfee Small Business Security or Kaspersky Small Office Security are good choices."
+    }
+  },
+  {
+    question: "What is ransomware, and how can I prevent it?",
+    answer: {
+      text: "Ransomware is malware that locks your data and demands payment for its release.",
+      advice: "Back up data frequently, update all software, and avoid clicking on suspicious links or attachments.",
+      recommendation: "Consider additional protection with solutions like Malwarebytes for malware detection."
+    }
+  },
+  {
+    question: "What is two-factor authentication (2FA), and should I use it?",
+    answer: {
+      text: "2FA adds an extra verification step—such as a text code or authenticator app—when logging in.",
+      advice: "Enable 2FA on all critical accounts to add a strong layer of security.",
+      recommendation: "Free apps like Google Authenticator or Authy are easy to set up."
+    }
+  },
+  {
+    question: "How can I train my employees on cybersecurity?",
+    answer: {
+      text: "Employee training is essential to help your team recognize and avoid cyber threats.",
+      advice: "Use regular online training sessions and simulated phishing exercises.",
+      recommendation: "Platforms like KnowBe4 or SANS Security Awareness provide user-friendly training modules."
+    }
+  },
+  {
+    question: "How can I secure my business's Wi-Fi network?",
+    answer: {
+      text: "Securing your Wi-Fi involves changing default passwords, using strong encryption (WPA2/WPA3), and limiting access to trusted devices.",
+      advice: "Regularly update your router firmware and hide your network name to deter unauthorized access.",
+      recommendation: "Consider routers from brands like Netgear or Linksys that offer robust security features."
+    }
+  },
+  {
+    question: "How often should I back up my business data?",
+    answer: {
+      text: "Frequent backups are critical; daily or weekly backups are recommended depending on your data changes.",
+      advice: "Use both local and cloud-based backups for added safety.",
+      recommendation: "Backup services such as Backblaze or Carbonite are trusted by many small businesses."
+    }
+  },
+  {
+    question: "What are the signs my business has been hacked?",
+    answer: {
+      text: "Signs include unexpected system slowdowns, unusual account activity, and unauthorized changes to files.",
+      advice: "Regularly monitor your systems and use security software to alert you of suspicious behavior.",
+      recommendation: "Network monitoring tools like SolarWinds or Splunk can help detect intrusions early."
+    }
+  },
+  {
+    question: "Is HTTPS important for my business website?",
+    answer: {
+      text: "Yes, HTTPS encrypts the connection between your website and visitors, protecting sensitive information.",
+      advice: "Ensure your website has an SSL certificate to build trust with visitors and improve search engine rankings.",
+      recommendation: "Services like Let's Encrypt offer free SSL certificates, or you can use products from DigiCert."
+    }
+  }
+];
+
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+  const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,6 +122,10 @@ function App() {
 
   const scrollToTools = () => {
     toolsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const toggleFAQ = (index: number) => {
+    setExpandedFAQ(expandedFAQ === index ? null : index);
   };
 
   if (currentPage === 'simple-assessment') {
@@ -164,6 +261,47 @@ function App() {
         </button>
       </header>
 
+      {/* Statistics Section */}
+      <section className="py-12 bg-gradient-to-br from-red-50 to-orange-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">The Growing Cyber Threat Landscape</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-xl p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
+              <div className="flex items-center justify-center w-12 h-12 bg-red-100 rounded-full mb-4 mx-auto">
+                <AlertOctagon className="w-6 h-6 text-red-600" />
+              </div>
+              <div className="text-4xl font-bold text-gray-900 text-center mb-2">87,400</div>
+              <p className="text-gray-600 text-center">
+                Reported cybersecurity incidents in Australia during FY24
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
+              <div className="flex items-center justify-center w-12 h-12 bg-amber-100 rounded-full mb-4 mx-auto">
+                <DollarSign className="w-6 h-6 text-amber-600" />
+              </div>
+              <div className="text-4xl font-bold text-gray-900 text-center mb-2">$49,600</div>
+              <p className="text-gray-600 text-center">
+                Average loss per cybersecurity incident for small businesses
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-xl p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
+              <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-4 mx-auto">
+                <Target className="w-6 h-6 text-blue-600" />
+              </div>
+              <div className="text-4xl font-bold text-gray-900 text-center mb-2">84%</div>
+              <p className="text-gray-600 text-center">
+                Of cyber incidents were caused by phishing attacks
+              </p>
+            </div>
+          </div>
+          <div className="text-center mt-6 text-sm text-gray-500">
+            Source: <a href="https://www.cyber.gov.au/about-us/view-all-content/reports-and-statistics/annual-cyber-threat-report-2023-2024" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline">Australian Cyber Security Centre Annual Cyber Threat Report 2023-2024</a>
+          </div>
+        </div>
+      </section>
+
       {/* Ad Section below hero */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <AdUnit slot="hero-bottom" className="w-full h-[90px]" />
@@ -261,7 +399,7 @@ function App() {
                 Cybersecurity Advisor
               </h3>
               <p className="text-gray-600 mb-4">
-                Your dedicated resource for instant cybersecurity guidance. Get clear, reliable answers to your security questions quickly.
+                Do you have more questions? Get clear, reliable answers to your security questions quickly.
               </p>
               <button
                 onClick={() => setCurrentPage('advisor')}
@@ -272,6 +410,47 @@ function App() {
             </div>
           </div>
         </div>
+
+        {/* FAQ Section */}
+        <section className="mt-16 bg-white rounded-2xl p-8 shadow-lg">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Cybersecurity Questions</h2>
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <div key={index} className="border border-gray-200 rounded-lg overflow-hidden bg-white hover:border-blue-200 transition-colors duration-200">
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    <span className="font-medium text-gray-900">{faq.question}</span>
+                    <ChevronRight
+                      className={`w-5 h-5 text-gray-500 transform transition-transform duration-200 ${
+                        expandedFAQ === index ? 'rotate-90' : ''
+                      }`}
+                    />
+                  </button>
+                  {expandedFAQ === index && (
+                    <div className="p-4 border-t border-gray-100 bg-gray-50">
+                      <p className="text-gray-700 mb-3">{faq.answer.text}</p>
+                      <div className="bg-blue-50 p-3 rounded-lg mb-3">
+                        <p className="text-gray-700">
+                          <span className="font-medium text-blue-700">Best Practice: </span>
+                          {faq.answer.advice}
+                        </p>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded-lg">
+                        <p className="text-gray-700">
+                          <span className="font-medium text-green-700">Recommended Tools: </span>
+                          {faq.answer.recommendation}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* The Challenge Section */}
         <section className="mt-24 bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-8 shadow-lg">
@@ -327,28 +506,6 @@ function App() {
           </div>
         </section>
 
-        {/* Privacy & Security Promise Section */}
-        <section className="mt-16 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 shadow-lg">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-start space-x-6">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <LockKeyhole className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <div className="flex items-center space-x-4 mb-4">
-                  <h2 className="text-2xl font-bold text-gray-900">Your Privacy Is Our Top Priority</h2>
-                  <span className="px-4 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full">
-                    Privacy-First | Ephemeral Data
-                  </span>
-                </div>
-                <p className="text-gray-700 leading-relaxed">
-                  We believe in protecting your privacy. We do not store any responses from our assessment or security advisor. Once your session ends, all data is permanently cleared. To ensure your security, please refrain from entering any personally identifiable information (names, addresses, phone numbers, passwords, etc.).
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Testimonials Section */}
         <section className="mt-16 bg-white rounded-2xl p-8 shadow-lg">
           <div className="max-w-4xl mx-auto">
@@ -392,8 +549,13 @@ function App() {
           </button>
         </section>
 
+        {/* Ad Section above About Us */}
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 mt-16">
+          <AdUnit slot="about-top" className="w-full h-[90px]" />
+        </div>
+
         {/* About Section */}
-        <section className="mt-16 bg-white rounded-lg shadow-lg p-8">
+        <section className="mt-8 bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">About Us</h2>
           <p className="text-gray-600">
             This page has been designed and built by IT professionals as a service to assist
