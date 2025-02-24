@@ -454,6 +454,11 @@ function App() {
           </div>
         </section>
 
+        {/* Ad Section below FAQ */}
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <AdUnit isLandingPage className="w-full h-[90px]" />
+        </div>
+
         {/* The Challenge Section */}
         <section className="mt-24 bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-8 shadow-lg">
           <div className="max-w-4xl mx-auto">
