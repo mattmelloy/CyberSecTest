@@ -3,7 +3,7 @@ import { Shield, FileCheck2, MessageSquareText, ChevronDown, AlertCircle, CheckC
 import SimpleQuiz from './components/SimpleQuiz';
 import AdvancedQuiz from './components/AdvancedQuiz';
 import SecurityAdvisor from './components/SecurityAdvisor';
-import AdUnit from './components/AdUnit';
+{/* import AdUnit from './components/AdUnit'; */}
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 
@@ -142,24 +142,24 @@ function App() {
           </div>
         </header>
         <div className="flex">
-          {/* Left sidebar ad */}
+          {/* Left sidebar ad
           <div className="hidden lg:block w-[160px] min-h-screen">
             <div className="sticky top-4">
               <AdUnit slot="assessment-left-sidebar" className="w-[160px] h-[600px]" />
             </div>
-          </div>
+          </div>*/}
           
           {/* Main content */}
           <div className="flex-1">
             <SimpleQuiz />
           </div>
           
-          {/* Right sidebar ad */}
+          {/* Right sidebar ad 
           <div className="hidden lg:block w-[160px] min-h-screen">
             <div className="sticky top-4">
-              <AdUnit slot="assessment-right-sidebar" className="w-[160px] h-[600px]" />
+              <AdUnit slot="assessment-right-sidebar" className="w-[160px] h-[600px]" /> 
             </div>
-          </div>
+          </div>*/}
         </div>
       </div>
     );
@@ -179,24 +179,24 @@ function App() {
           </div>
         </header>
         <div className="flex">
-          {/* Left sidebar ad */}
+          {/* Left sidebar ad 
           <div className="hidden lg:block w-[160px] min-h-screen">
             <div className="sticky top-4">
-              <AdUnit slot="advanced-assessment-left-sidebar" className="w-[160px] h-[600px]" />
+              <AdUnit slot="advanced-assessment-left-sidebar" className="w-[160px] h-[600px]" /> 
             </div>
-          </div>
+          </div>*/}
           
           {/* Main content */}
           <div className="flex-1">
             <AdvancedQuiz />
           </div>
           
-          {/* Right sidebar ad */}
+          {/* Right sidebar ad 
           <div className="hidden lg:block w-[160px] min-h-screen">
             <div className="sticky top-4">
-              <AdUnit slot="advanced-assessment-right-sidebar" className="w-[160px] h-[600px]" />
+              <AdUnit slot="advanced-assessment-right-sidebar" className="w-[160px] h-[600px]" /> 
             </div>
-          </div>
+          </div>*/}
         </div>
       </div>
     );
@@ -304,10 +304,10 @@ function App() {
         </div>
       </section>
 
-      {/* Ad Section below hero */}
+      {/* Ad Section below hero 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <AdUnit slot="hero-bottom" className="w-full h-[90px]" />
-      </div>
+      </div> */}
 
       {/* Main content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -454,10 +454,7 @@ function App() {
           </div>
         </section>
 
-        {/* Ad Section below FAQ */}
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <AdUnit isLandingPage className="w-full h-[90px]" />
-        </div>
+
 
         {/* The Challenge Section */}
         <section className="mt-24 bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-8 shadow-lg">
@@ -556,10 +553,10 @@ function App() {
           </button>
         </section>
 
-        {/* Ad Section above About Us */}
+        {/* Ad Section above About Us 
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 mt-16">
           <AdUnit slot="about-top" className="w-full h-[90px]" />
-        </div>
+        </div>*/}
 
         {/* About Section */}
         <section className="mt-8 bg-white rounded-lg shadow-lg p-8">

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowLeft, Send, AlertTriangle, Shield, User, MessageSquareText } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import AdUnit from './AdUnit';
+{/* import AdUnit from './AdUnit'; */}
 import { initializeGemini, generateResponse } from '../utils/gemini';
 
 interface Message {
