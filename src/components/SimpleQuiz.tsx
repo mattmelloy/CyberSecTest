@@ -277,8 +277,9 @@ export default function SimpleQuiz() {
             <button
               onClick={handleDownloadPDF}
               className="w-full flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
+              aria-label="Download detailed assessment report as PDF"
             >
-              <Download className="w-5 h-5 mr-2" />
+              <Download className="w-5 h-5 mr-2" aria-hidden="true" />
               Download Detailed Assessment Report (PDF)
             </button>
           </div>
@@ -314,7 +315,7 @@ export default function SimpleQuiz() {
 
           <div className="mb-8 bg-blue-50 p-6 rounded-lg">
             <div className="flex items-start space-x-4">
-              <MessageSquareText className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+              <MessageSquareText className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" aria-hidden="true" />
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   Have questions about your results?
@@ -327,6 +328,7 @@ export default function SimpleQuiz() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
+                  aria-label="Chat with cybersecurity advisor"
                 >
                   Chat with Advisor
                 </a>
@@ -348,7 +350,7 @@ export default function SimpleQuiz() {
                     <p className="text-gray-700 mt-1">{rec.userAnswer}</p>
                   </div>
                   <div className="flex items-start bg-red-50 p-4 rounded">
-                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" />
+                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" aria-hidden="true" />
                     <p className="text-gray-700">{rec.feedback}</p>
                   </div>
                 </div>
@@ -368,7 +370,7 @@ export default function SimpleQuiz() {
       <header className="bg-white shadow-sm mb-8">
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-3">
-            <Shield className="w-8 h-8 text-blue-600" />
+            <Shield className="w-8 h-8 text-blue-600" aria-hidden="true" />
             <h1 className="text-2xl font-bold text-gray-900">Cybersecurity Self-Assessment</h1>
           </div>
           <p className="mt-2 text-sm text-gray-600">
@@ -392,13 +394,14 @@ export default function SimpleQuiz() {
               <div
                 className="bg-blue-600 h-2.5 rounded-full"
                 style={{ width: `${((currentQuestion + 1) / assessmentQuestions.length) * 100}%` }}
+                aria-hidden="true"
               ></div>
             </div>
           </div>
 
           <h3 className="text-xl font-semibold text-gray-900 mb-6">{question.question}</h3>
 
-          <div className="space-y-4">
+          <div className="space-y-4" role="radiogroup" aria-labelledby="question-label">
             {question.answers.map((answer, index) => (
               <button
                 key={index}
@@ -408,6 +411,9 @@ export default function SimpleQuiz() {
                     ? 'border-blue-500 bg-blue-50'
                     : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
                 } transition-colors duration-300`}
+                role="radio"
+                aria-checked={currentAnswer === index}
+                aria-label={answer.text}
               >
                 {answer.text}
               </button>
@@ -423,8 +429,9 @@ export default function SimpleQuiz() {
                   ? 'text-gray-400 cursor-not-allowed'
                   : 'text-blue-600 hover:text-blue-800'
               }`}
+              aria-label="Go to previous question"
             >
-              <ArrowLeft className="w-5 h-5 mr-2" />
+              <ArrowLeft className="w-5 h-5 mr-2" aria-hidden="true" />
               Previous
             </button>
             <div className="text-gray-600">
@@ -434,9 +441,10 @@ export default function SimpleQuiz() {
               <button
                 onClick={() => calculateResults(answers)}
                 className="flex items-center justify-center bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
+                aria-label="Show assessment results"
               >
                 <span className="mr-2">Show Results</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5" aria-hidden="true" />
               </button>
             ) : (
               <button
@@ -447,9 +455,10 @@ export default function SimpleQuiz() {
                     ? 'text-gray-400 cursor-not-allowed'
                     : 'text-blue-600 hover:text-blue-800'
                 }`}
+                aria-label="Go to next question"
               >
                 Next
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />
               </button>
             )}
           </div>

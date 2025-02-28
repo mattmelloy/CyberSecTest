@@ -120,6 +120,31 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Add structured data for SEO
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CyberSecurity Assessment",
+      "description": "Free cybersecurity self-assessment tool for small businesses. Get instant insights and actionable recommendations to protect your business from cyber threats.",
+      "url": "https://cybersectest.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://cybersectest.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   const scrollToTools = () => {
     toolsRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -223,6 +248,7 @@ function App() {
             src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2574&auto=format&fit=crop" 
             alt="Data center with blue lighting" 
             className="w-full h-full object-cover"
+            loading="eager"
           />
           <div className="absolute inset-0 bg-blue-900/40 mix-blend-multiply" />
         </div>
@@ -239,6 +265,7 @@ function App() {
               <button
                 onClick={() => setCurrentPage('simple-assessment')}
                 className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
+                aria-label="Start your free cybersecurity assessment"
               >
                 Start Your Free Assessment
               </button>
@@ -364,6 +391,7 @@ function App() {
               <button
                 onClick={() => setCurrentPage('simple-assessment')}
                 className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300"
+                aria-label="Start simple security assessment"
               >
                 Start Assessment
               </button>
@@ -385,6 +413,7 @@ function App() {
               <button
                 onClick={() => setCurrentPage('advanced-assessment')}
                 className="w-full bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors duration-300"
+                aria-label="Start NIST 800-53 assessment"
               >
                 Start Assessment
               </button>
@@ -406,6 +435,7 @@ function App() {
               <button
                 onClick={() => setCurrentPage('advisor')}
                 className="w-full bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300"
+                aria-label="Chat with cybersecurity advisor"
               >
                 Start Chatting Now
               </button>
@@ -423,6 +453,8 @@ function App() {
                   <button
                     onClick={() => toggleFAQ(index)}
                     className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors duration-200"
+                    aria-expanded={expandedFAQ === index}
+                    aria-controls={`faq-answer-${index}`}
                   >
                     <span className="font-medium text-gray-900">{faq.question}</span>
                     <ChevronRight
@@ -432,7 +464,7 @@ function App() {
                     />
                   </button>
                   {expandedFAQ === index && (
-                    <div className="p-4 border-t border-gray-100 bg-gray-50">
+                    <div id={`faq-answer-${index}`} className="p-4 border-t border-gray-100 bg-gray-50">
                       <p className="text-gray-700 mb-3">{faq.answer.text}</p>
                       <div className="bg-blue-50 p-3 rounded-lg mb-3">
                         <p className="text-gray-700">
@@ -453,8 +485,6 @@ function App() {
             </div>
           </div>
         </section>
-
-
 
         {/* The Challenge Section */}
         <section className="mt-24 bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-8 shadow-lg">
@@ -501,6 +531,7 @@ function App() {
                 <button
                   onClick={() => setCurrentPage('simple-assessment')}
                   className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
+                  aria-label="Start cybersecurity assessment"
                 >
                   Start Assessment Now
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -547,6 +578,7 @@ function App() {
           <button
             onClick={() => setCurrentPage('simple-assessment')}
             className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-colors duration-300 shadow-lg"
+            aria-label="Start free cybersecurity assessment"
           >
             Start Your Free Assessment Now
             <ArrowRight className="w-6 h-6 ml-2" />
@@ -566,6 +598,19 @@ function App() {
             small businesses with improving cybersecurity. This is our passion, and this tool
             has been designed to help people minimize the risk of cybersecurity compromise.
           </p>
+          <div className="mt-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">Our Mission</h3>
+            <p className="text-gray-600 mb-4">
+              We believe that every small business deserves access to quality cybersecurity guidance, 
+              regardless of their budget or technical expertise. Our mission is to demystify cybersecurity 
+              and provide practical, actionable advice that can be implemented by businesses of all sizes.
+            </p>
+            <p className="text-gray-600">
+              Through our free assessment tools and educational resources, we aim to raise awareness about 
+              cyber threats and empower business owners to take proactive steps to protect their valuable data, 
+              customer information, and business operations from increasingly sophisticated cyber attacks.
+            </p>
+          </div>
         </section>
 
         {/* Footer */}
