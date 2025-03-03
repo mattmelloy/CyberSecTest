@@ -7,6 +7,7 @@ import SecurityAdvisor from './components/SecurityAdvisor';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import HomePage from './components/HomePage';
+import FreeTools from './components/FreeTools';
 
 interface FAQ {
   question: string;
@@ -169,6 +170,7 @@ function App() {
       <Route path="/advisor" element={<SecurityAdvisor onBack={() => navigate('/')} />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy onBack={() => navigate('/')} />} />
       <Route path="/terms" element={<TermsOfService onBack={() => navigate('/')} />} />
+      <Route path="/freesecuritytools" element={<FreeTools onBack={() => navigate('/')} />} />
     </Routes>
   );
 }

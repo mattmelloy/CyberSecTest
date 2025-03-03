@@ -1,5 +1,5 @@
 import React, { RefObject } from 'react';
-import { Shield, FileCheck2, MessageSquareText, ChevronDown, AlertCircle, CheckCircle2, ArrowRight, Users, Zap, AlertOctagon, DollarSign, Target, ChevronRight } from 'lucide-react';
+import { Shield, FileCheck2, MessageSquareText, ChevronDown, AlertCircle, CheckCircle2, ArrowRight, Users, Zap, AlertOctagon, DollarSign, Target, ChevronRight, ExternalLink, PenTool as Tool } from 'lucide-react';
 
 interface FAQ {
   question: string;
@@ -52,13 +52,12 @@ export default function HomePage({
               Protect your business from hackers and cyber attacks with free and easy to understand IT security advice.
             </p>
             <div className="mt-8 flex flex-col items-center space-y-4">
-              <button
-                onClick={() => onNavigate('/simple-assessment')}
+              <a 
+                href="/simple-assessment"
                 className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
-                aria-label="Start your free cybersecurity assessment"
               >
                 Start Your Free Assessment
-              </button>
+              </a>
               <p className="text-sm text-gray-200 font-bold">
                 It's time to understand your business risks and how you can prevent being hacked!
               </p>
@@ -71,11 +70,9 @@ export default function HomePage({
           className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 transition-opacity duration-500 ${
             showScrollIndicator ? 'opacity-100' : 'opacity-0'
           }`}
-          aria-label="Scroll to assessment tools"
-          role="button"
         >
           <div className="animate-bounce bg-white/20 p-2 rounded-full backdrop-blur-sm hover:bg-white/30 transition-colors">
-            <ChevronDown className="w-6 h-6 text-white" aria-hidden="true" />
+            <ChevronDown className="w-6 h-6 text-white" />
           </div>
         </button>
       </header>
@@ -160,7 +157,7 @@ export default function HomePage({
         </section>
 
         {/* Tools Section */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Simple Assessment Card */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
             <div className="p-6">
@@ -173,13 +170,12 @@ export default function HomePage({
               <p className="text-gray-600 mb-4">
                 A 5 minute 10-question assessment to evaluate your basic cybersecurity practices.
               </p>
-              <button
-                onClick={() => onNavigate('/simple-assessment')}
-                className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300"
-                aria-label="Start simple security assessment"
+              <a
+                href="/simple-assessment"
+                className="w-full block text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300"
               >
                 Start Assessment
-              </button>
+              </a>
             </div>
           </div>
 
@@ -195,13 +191,12 @@ export default function HomePage({
               <p className="text-gray-600 mb-4">
                 Detailed assessment based on NIST 800-53 framework for IT professionals.
               </p>
-              <button
-                onClick={() => onNavigate('/advanced-assessment')}
-                className="w-full bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors duration-300"
-                aria-label="Start NIST 800-53 assessment"
+              <a
+                href="/advanced-assessment"
+                className="w-full block text-center bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors duration-300"
               >
                 Start Assessment
-              </button>
+              </a>
             </div>
           </div>
 
@@ -217,13 +212,33 @@ export default function HomePage({
               <p className="text-gray-600 mb-4">
                 Do you have more questions? Get clear, reliable answers to your security questions quickly.
               </p>
-              <button
-                onClick={() => onNavigate('/advisor')}
-                className="w-full bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300"
-                aria-label="Chat with cybersecurity advisor"
+              <a
+                href="/advisor"
+                className="w-full block text-center bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300"
               >
-                Start Chatting Now
-              </button>
+                Start Chatting
+              </a>
+            </div>
+          </div>
+          
+          {/* Free Tools Card */}
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div className="p-6">
+              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                <Tool className="w-6 h-6 text-orange-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Free Security Tools
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Discover free online tools to help protect your business from cyber threats and improve your security posture.
+              </p>
+              <a
+                href="/freesecuritytools"
+                className="w-full block text-center bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 transition-colors duration-300"
+              >
+                View Free Tools
+              </a>
             </div>
           </div>
         </div>
@@ -238,8 +253,6 @@ export default function HomePage({
                   <button
                     onClick={() => toggleFAQ(index)}
                     className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors duration-200"
-                    aria-expanded={expandedFAQ === index}
-                    aria-controls={`faq-answer-${index}`}
                   >
                     <span className="font-medium text-gray-900">{faq.question}</span>
                     <ChevronRight
@@ -249,7 +262,7 @@ export default function HomePage({
                     />
                   </button>
                   {expandedFAQ === index && (
-                    <div id={`faq-answer-${index}`} className="p-4 border-t border-gray-100 bg-gray-50">
+                    <div className="p-4 border-t border-gray-100 bg-gray-50">
                       <p className="text-gray-700 mb-3">{faq.answer.text}</p>
                       <div className="bg-blue-50 p-3 rounded-lg mb-3">
                         <p className="text-gray-700">
@@ -313,14 +326,13 @@ export default function HomePage({
                     </div>
                   ))}
                 </div>
-                <button
-                  onClick={() => onNavigate('/simple-assessment')}
+                <a
+                  href="/simple-assessment"
                   className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
-                  aria-label="Start cybersecurity assessment"
                 >
                   Start Assessment Now
                   <ArrowRight className="w-5 h-5 ml-2" />
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -360,14 +372,13 @@ export default function HomePage({
           <p className="text-xl text-blue-100 mb-8">
             Take control of your business's security with our free, no-risk assessment.
           </p>
-          <button
-            onClick={() => onNavigate('/simple-assessment')}
+          <a
+            href="/simple-assessment"
             className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-colors duration-300 shadow-lg"
-            aria-label="Start free cybersecurity assessment"
           >
             Start Your Free Assessment Now
             <ArrowRight className="w-6 h-6 ml-2" />
-          </button>
+          </a>
         </section>
 
         {/* About Section */}
@@ -393,23 +404,71 @@ export default function HomePage({
           </div>
         </section>
 
+        {/* Site Map Section */}
+        <section className="mt-8 bg-white rounded-lg shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Site Map</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Main Pages</h3>
+              <ul className="space-y-2">
+                <li>
+                  <a href="/" className="text-blue-600 hover:text-blue-800 hover:underline">Home</a>
+                </li>
+                <li>
+                  <a href="/simple-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Simple Security Assessment</a>
+                </li>
+                <li>
+                  <a href="/advanced-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">NIST 800-53 Assessment</a>
+                </li>
+                <li>
+                  <a href="/advisor" className="text-blue-600 hover:text-blue-800 hover:underline">Cybersecurity Advisor</a>
+                </li>
+                <li>
+                  <a href="/freesecuritytools" className="text-blue-600 hover:text-blue-800 hover:underline">Free Security Tools</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Legal Information</h3>
+              <ul className="space-y-2">
+                <li>
+                  <a href="/privacy-policy" className="text-blue-600 hover:text-blue-800 hover:underline">Privacy Policy</a>
+                </li>
+                <li>
+                  <a href="/terms" className="text-blue-600 hover:text-blue-800 hover:underline">Terms of Service</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Resources</h3>
+              <ul className="space-y-2">
+                <li>
+                  <a href="https://www.cyber.gov.au/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline flex items-center">
+                    Australian Cyber Security Centre <ExternalLink className="w-3 h-3 ml-1" />
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.cisa.gov/small-business" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 hover:underline flex items-center">
+                    CISA Small Business Resources <ExternalLink className="w-3 h-3 ml-1" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
         {/* Footer */}
         <footer className="mt-16 py-8 border-t border-gray-200">
           <div className="text-center text-gray-600">
             <p>© 2025 Cybersecurity Assessment Tool. All rights reserved.</p>
-            <div className="mt-2">
-              <button
-                onClick={() => onNavigate('/privacy-policy')}
-                className="text-blue-600 hover:text-blue-800 mx-2"
-              >
-                Privacy Policy
-              </button>
-              <button
-                onClick={() => onNavigate('/terms')}
-                className="text-blue-600 hover:text-blue-800 mx-2"
-              >
-                Terms of Service
-              </button>
+            <div className="mt-2 flex justify-center space-x-4">
+              <a href="/" className="text-blue-600 hover:text-blue-800 hover:underline">Home</a>
+              <a href="/simple-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Simple Assessment</a>
+              <a href="/advanced-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Advanced Assessment</a>
+              <a href="/advisor" className="text-blue-600 hover:text-blue-800 hover:underline">Advisor</a>
+              <a href="/freesecuritytools" className="text-blue-600 hover:text-blue-800 hover:underline">Free Tools</a>
+              <a href="/privacy-policy" className="text-blue-600 hover:text-blue-800 hover:underline">Privacy Policy</a>
+              <a href="/terms" className="text-blue-600 hover:text-blue-800 hover:underline">Terms of Service</a>
             </div>
           </div>
         </footer>

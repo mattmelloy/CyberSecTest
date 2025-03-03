@@ -25,6 +25,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://cybersectest.com/free-tools</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://cybersectest.com/privacy-policy</loc>
     <lastmod>2025-02-20</lastmod>
     <changefreq>yearly</changefreq>

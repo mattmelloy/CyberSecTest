@@ -109,6 +109,17 @@ export default function TermsOfService({ onBack }: TermsOfServiceProps) {
                 Cyber Sec Test reserves the right to terminate or suspend your access to the Website at any time, without notice, for conduct that Cyber Sec Test believes violates these Terms or is harmful to other users or the Website.
               </p>
             </section>
+            
+            <div className="mt-8 text-center">
+              <p className="text-gray-600 mb-4">Return to our main site to explore more resources</p>
+              <div className="flex justify-center space-x-4">
+                <a href="/" className="text-blue-600 hover:text-blue-800 hover:underline">Home</a>
+                <a href="/simple-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Simple Assessment</a>
+                <a href="/advanced-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Advanced Assessment</a>
+                <a href="/advisor" className="text-blue-600 hover:text-blue-800 hover:underline">Advisor</a>
+                <a href="/freesecuritytools" className="text-blue-600 hover:text-blue-800 hover:underline">Free Tools</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

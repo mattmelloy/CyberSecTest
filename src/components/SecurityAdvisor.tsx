@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowLeft, Send, AlertTriangle, Shield, User, MessageSquareText } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-{/* import AdUnit from './AdUnit'; */}
 import { initializeGemini, generateResponse } from '../utils/gemini';
 
 interface Message {
@@ -100,7 +99,7 @@ export default function SecurityAdvisor({ onBack }: SecurityAdvisorProps) {
           <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
             <div className="flex">
               <div className="flex-shrink-0">
-                <AlertTriangle className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+                <AlertTriangle className="h-5 w-5 text-yellow-400" />
               </div>
               <div className="ml-3">
                 <p className="text-sm text-yellow-700">
@@ -124,7 +123,7 @@ export default function SecurityAdvisor({ onBack }: SecurityAdvisorProps) {
             <div className="h-[calc(100vh-380px)] overflow-y-auto p-4">
               {messages.length === 0 ? (
                 <div className="text-center text-gray-500 mt-8">
-                  <Shield className="w-12 h-12 mx-auto mb-4 text-blue-600" aria-hidden="true" />
+                  <Shield className="w-12 h-12 mx-auto mb-4 text-blue-600" />
                   <p className="text-lg font-medium mb-2">
                     How can I help secure your business today?
                   </p>
@@ -152,7 +151,6 @@ export default function SecurityAdvisor({ onBack }: SecurityAdvisorProps) {
                               ? 'bg-blue-100'
                               : 'bg-purple-100'
                           }`}
-                          aria-hidden="true"
                         >
                           {message.role === 'user' ? (
                             <User className="w-5 h-5 text-blue-600" />
@@ -176,7 +174,7 @@ export default function SecurityAdvisor({ onBack }: SecurityAdvisorProps) {
                   ))}
                   {isLoading && (
                     <div className="flex items-start space-x-2">
-                      <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center" aria-hidden="true">
+                      <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
                         <Shield className="w-5 h-5 text-purple-600" />
                       </div>
                       <div className="bg-gray-100 rounded-lg px-4 py-2">
@@ -203,7 +201,6 @@ export default function SecurityAdvisor({ onBack }: SecurityAdvisorProps) {
                   placeholder="Ask your cybersecurity question..."
                   className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   disabled={isLoading || !apiInitialized}
-                  aria-label="Your cybersecurity question"
                 />
                 <button
                   type="submit"
@@ -213,11 +210,20 @@ export default function SecurityAdvisor({ onBack }: SecurityAdvisorProps) {
                       ? 'bg-gray-300 cursor-not-allowed'
                       : 'bg-purple-600 hover:bg-purple-700'
                   } text-white transition-colors duration-200`}
-                  aria-label="Send message"
                 >
-                  <Send className="w-5 h-5" aria-hidden="true" />
+                  <Send className="w-5 h-5" />
                 </button>
               </form>
+            </div>
+          </div>
+          
+          <div className="mt-4 text-center">
+            <p className="text-gray-600 mb-4">Return to our main site to explore more resources</p>
+            <div className="flex justify-center space-x-4">
+              <a href="/" className="text-blue-600 hover:text-blue-800 hover:underline">Home</a>
+              <a href="/simple-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Simple Assessment</a>
+              <a href="/advanced-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Advanced Assessment</a>
+              <a href="/freesecuritytools" className="text-blue-600 hover:text-blue-800 hover:underline">Free Tools</a>
             </div>
           </div>
         </div>

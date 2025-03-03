@@ -95,6 +95,17 @@ export default function PrivacyPolicy({ onBack }: PrivacyPolicyProps) {
                 We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last Updated" date. We encourage you to review this policy periodically to stay informed about how we protect your information.
               </p>
             </section>
+            
+            <div className="mt-8 text-center">
+              <p className="text-gray-600 mb-4">Return to our main site to explore more resources</p>
+              <div className="flex justify-center space-x-4">
+                <a href="/" className="text-blue-600 hover:text-blue-800 hover:underline">Home</a>
+                <a href="/simple-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Simple Assessment</a>
+                <a href="/advanced-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Advanced Assessment</a>
+                <a href="/advisor" className="text-blue-600 hover:text-blue-800 hover:underline">Advisor</a>
+                <a href="/freesecuritytools" className="text-blue-600 hover:text-blue-800 hover:underline">Free Tools</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

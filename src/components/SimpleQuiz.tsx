@@ -392,6 +392,16 @@ export default function SimpleQuiz({ onBack }: SimpleQuizProps) {
                 </div>
               </div>
             </div>
+            
+            <div className="mt-8 text-center">
+              <p className="text-gray-600 mb-4">Return to our main site to explore more resources</p>
+              <div className="flex justify-center space-x-4">
+                <a href="/" className="text-blue-600 hover:text-blue-800 hover:underline">Home</a>
+                <a href="/advanced-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Try Advanced Assessment</a>
+                <a href="/advisor" className="text-blue-600 hover:text-blue-800 hover:underline">Speak with Advisor</a>
+                <a href="/freesecuritytools" className="text-blue-600 hover:text-blue-800 hover:underline">Free Tools</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -432,7 +442,7 @@ export default function SimpleQuiz({ onBack }: SimpleQuizProps) {
               <span className="text-sm font-medium text-gray-600">
                 {assessmentQuestions[currentQuestion].category}
               </span>
-            </div>
+             </div>
             <div className="w-full bg-gray-200 rounded-full h-2.5">
               <div
                 className="bg-blue-600 h-2.5 rounded-full"
@@ -490,6 +500,12 @@ export default function SimpleQuiz({ onBack }: SimpleQuizProps) {
               Next
               <ArrowRight className="w-5 h-5 ml-2" />
             </button>
+          </div>
+          
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <p className="text-sm text-gray-600 text-center">
+              Need to come back later? You can return to our <a href="/" className="text-blue-600 hover:text-blue-800 hover:underline">home page</a> and restart the assessment anytime.
+            </p>
           </div>
         </div>
       </div>
