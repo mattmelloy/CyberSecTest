@@ -5,7 +5,11 @@ import { advancedQuiz } from '../data/advancedQuiz';
 import { jsPDF } from 'jspdf';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 
-export default function AdvancedQuiz() {
+interface AdvancedQuizProps {
+  onBack: () => void;
+}
+
+export default function AdvancedQuiz({ onBack }: AdvancedQuizProps) {
   const [currentFamily, setCurrentFamily] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number[]>>({});
@@ -265,117 +269,131 @@ export default function AdvancedQuiz() {
     }));
 
     return (
-      <div className="max-w-7xl mx-auto p-6">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <div className="mb-8">
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+        <header className="bg-white shadow-sm mb-8">
+          <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
             <button
-              onClick={handleDownloadPDF}
-              className="w-full flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
+              onClick={onBack}
+              className="text-blue-600 hover:text-blue-800 flex items-center"
             >
-              <Download className="w-5 h-5 mr-2" />
-              Download Detailed Assessment Report (PDF)
+              <ArrowLeft className="w-5 h-5 mr-2" />
+              Back to Home
             </button>
           </div>
+        </header>
+        
+        <div className="max-w-7xl mx-auto p-6">
+          <div className="bg-white rounded-lg shadow-lg p-8">
+            <div className="mb-8">
+              <button
+                onClick={handleDownloadPDF}
+                className="w-full flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
+              >
+                <Download className="w-5 h-5 mr-2" />
+                Download Detailed Assessment Report (PDF)
+              </button>
+            </div>
 
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">NIST 800-53 Security Assessment Results</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Overall Security Maturity Score</h3>
-                <div className="text-5xl font-bold mb-2" style={{ color: scoreColor }}>{scorePercentage}%</div>
-                <div className="text-lg text-gray-600">Maturity Level: {maturityLevel}</div>
-              </div>
+            <div className="mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">NIST 800-53 Security Assessment Results</h2>
               
-              <div className="flex justify-center">
-                <PieChart width={200} height={200}>
-                  <Pie
-                    data={pieData}
-                    cx={100}
-                    cy={100}
-                    innerRadius={60}
-                    outerRadius={80}
-                    paddingAngle={2}
-                    dataKey="value"
-                    startAngle={90}
-                    endAngle={-270}
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                </PieChart>
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Overall Security Maturity Score</h3>
+                  <div className="text-5xl font-bold mb-2" style={{ color: scoreColor }}>{scorePercentage}%</div>
+                  <div className="text-lg text-gray-600">Maturity Level: {maturityLevel}</div>
+                </div>
+                
+                <div className="flex justify-center">
+                  <PieChart width={200} height={200}>
+                    <Pie
+                      data={pieData}
+                      cx={100}
+                      cy={100}
+                      innerRadius={60}
+                      outerRadius={80}
+                      paddingAngle={2}
+                      dataKey="value"
+                      startAngle={90}
+                      endAngle={-270}
+                    >
+                      {pieData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">Control Family Scores</h3>
-            <div className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={barData}
-                  layout="vertical"
-                  margin={{ top: 5, right: 30, left: 150, bottom: 5 }}
-                >
-                  <XAxis type="number" domain={[0, 100]} />
-                  <YAxis type="category" dataKey="name" width={140} />
-                  <Tooltip />
-                  <Bar dataKey="score" fill="#3B82F6" />
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="mb-12">
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Control Family Scores</h3>
+              <div className="h-[400px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={barData}
+                    layout="vertical"
+                    margin={{ top: 5, right: 30, left: 150, bottom: 5 }}
+                  >
+                    <XAxis type="number" domain={[0, 100]} />
+                    <YAxis type="category" dataKey="name" width={140} />
+                    <Tooltip />
+                    <Bar dataKey="score" fill="#3B82F6" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
-          </div>
 
-          <div className="mb-8">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">Recommendations by Control Family</h3>
-            <div className="space-y-8">
-              {result.familyScores.map((familyScore, index) => (
-                familyScore.recommendations.length > 0 && (
-                  <div key={index} className="bg-gray-50 p-6 rounded-lg">
-                    <h4 className="text-xl font-semibold text-blue-600 mb-4">{familyScore.name}</h4>
-                    <div className="space-y-6">
-                      {familyScore.recommendations.map((rec, recIndex) => (
-                        <div key={recIndex} className="bg-white p-6 rounded-lg shadow">
-                          <h5 className="text-lg font-medium text-gray-900 mb-3">{rec.question}</h5>
-                          <div className="mb-4">
-                            <span className="text-sm font-medium text-gray-500">Current Implementation:</span>
-                            <p className="mt-1 text-gray-700">{rec.selectedOption}</p>
-                          </div>
-                          <div className="bg-blue-50 p-4 rounded">
-                            <div className="flex items-start">
-                              <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
-                              <div>
-                                <span className="font-medium text-blue-600">Recommendation:</span>
-                                <p className="mt-1 text-gray-700">{rec.advice}</p>
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Recommendations by Control Family</h3>
+              <div className="space-y-8">
+                {result.familyScores.map((familyScore, index) => (
+                  familyScore.recommendations.length > 0 && (
+                    <div key={index} className="bg-gray-50 p-6 rounded-lg">
+                      <h4 className="text-xl font-semibold text-blue-600 mb-4">{familyScore.name}</h4>
+                      <div className="space-y-6">
+                        {familyScore.recommendations.map((rec, recIndex) => (
+                          <div key={recIndex} className="bg-white p-6 rounded-lg shadow">
+                            <h5 className="text-lg font-medium text-gray-900 mb-3">{rec.question}</h5>
+                            <div className="mb-4">
+                              <span className="text-sm font-medium text-gray-500">Current Implementation:</span>
+                              <p className="mt-1 text-gray-700">{rec.selectedOption}</p>
+                            </div>
+                            <div className="bg-blue-50 p-4 rounded">
+                              <div className="flex items-start">
+                                <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
+                                <div>
+                                  <span className="font-medium text-blue-600">Recommendation:</span>
+                                  <p className="mt-1 text-gray-700">{rec.advice}</p>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )
-              ))}
+                  )
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="mt-12 bg-blue-50 p-6 rounded-lg">
-            <div className="flex items-start space-x-4">
-              <MessageSquareText className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Need help implementing these recommendations?
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Our Cybersecurity Advisor can provide detailed guidance on implementing NIST 800-53 controls and improving your security posture.
-                </p>
-                <a
-                  href="/advisor"
-                  className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
-                >
-                  Chat with Advisor
-                </a>
+            <div className="mt-12 bg-blue-50 p-6 rounded-lg">
+              <div className="flex items-start space-x-4">
+                <MessageSquareText className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Need help implementing these recommendations?
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Our Cybersecurity Advisor can provide detailed guidance on implementing NIST 800-53 controls and improving your security posture.
+                  </p>
+                  <a
+                    href="/advisor"
+                    className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
+                  >
+                    Chat with Advisor
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -397,6 +415,13 @@ export default function AdvancedQuiz() {
               </p>
             </div>
           </div>
+          <button
+            onClick={onBack}
+            className="mt-4 text-blue-600 hover:text-blue-800 flex items-center"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Back to Home
+          </button>
         </div>
       </header>
 

@@ -5,7 +5,11 @@ import { ArrowLeft, ArrowRight, Download, AlertCircle, MessageSquareText, Shield
 import { jsPDF } from 'jspdf';
 import { PieChart, Pie, Cell } from 'recharts';
 
-export default function SimpleQuiz() {
+interface SimpleQuizProps {
+  onBack: () => void;
+}
+
+export default function SimpleQuiz({ onBack }: SimpleQuizProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>(Array(assessmentQuestions.length).fill(-1));
   const [showResults, setShowResults] = useState(false);
@@ -18,6 +22,8 @@ export default function SimpleQuiz() {
 
     if (currentQuestion < assessmentQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
+    } else if (answers.every(a => a !== -1)) {
+      calculateResults(answers);
     }
   };
 
@@ -271,90 +277,120 @@ export default function SimpleQuiz() {
     const COLORS = [scoreColor, '#E8E8E8'];
 
     return (
-      <div className="max-w-3xl mx-auto p-6">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <div className="mb-8">
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+        <header className="bg-white shadow-sm mb-8">
+          <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
             <button
-              onClick={handleDownloadPDF}
-              className="w-full flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
-              aria-label="Download detailed assessment report as PDF"
+              onClick={onBack}
+              className="text-blue-600 hover:text-blue-800 flex items-center"
             >
-              <Download className="w-5 h-5 mr-2" aria-hidden="true" />
-              Download Detailed Assessment Report (PDF)
+              <ArrowLeft className="w-5 h-5 mr-2" />
+              Back to Home
             </button>
           </div>
-
-          <div className="mb-8 flex items-center justify-between bg-gray-50 p-6 rounded-lg">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Security Assessment Score</h2>
-              <div className="text-4xl font-bold" style={{ color: scoreColor }}>{scorePercentage}%</div>
-              <div className="text-sm text-gray-500 mt-1">
-                {scorePercentage >= 80 ? 'Low Risk' : scorePercentage >= 60 ? 'Moderate Risk' : 'High Risk'}
-              </div>
+        </header>
+        
+        <div className="max-w-3xl mx-auto p-6">
+          <div className="bg-white rounded-lg shadow-lg p-8">
+            <div className="mb-8">
+              <button
+                onClick={handleDownloadPDF}
+                className="w-full flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
+              >
+                <Download className="w-5 h-5 mr-2" />
+                Download Assessment Report (PDF)
+              </button>
             </div>
-            <div className="w-40 h-40">
-              <PieChart width={160} height={160}>
-                <Pie
-                  data={pieData}
-                  cx={80}
-                  cy={80}
-                  innerRadius={55}
-                  outerRadius={70}
-                  paddingAngle={2}
-                  dataKey="value"
-                  startAngle={90}
-                  endAngle={-270}
-                >
-                  {pieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </div>
-          </div>
 
-          <div className="mb-8 bg-blue-50 p-6 rounded-lg">
-            <div className="flex items-start space-x-4">
-              <MessageSquareText className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" aria-hidden="true" />
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Have questions about your results?
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Our Cybersecurity Advisor is here to help you understand your assessment and provide guidance on implementing improvements.
-                </p>
-                <a
-                  href="https://cybersectest.com/advisor"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
-                  aria-label="Chat with cybersecurity advisor"
-                >
-                  Chat with Advisor
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Areas for Improvement:</h3>
-            <div className="space-y-6">
-              {result.recommendations.map((rec, index) => (
-                <div key={index} className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                  <div className="mb-3">
-                    <span className="text-sm font-medium text-blue-600">Question {rec.questionNumber}</span>
-                    <h4 className="text-lg font-medium text-gray-900 mt-1">{rec.question}</h4>
-                  </div>
-                  <div className="mb-4 bg-white p-3 rounded border border-gray-100">
-                    <span className="text-sm font-medium text-gray-500">Your Answer:</span>
-                    <p className="text-gray-700 mt-1">{rec.userAnswer}</p>
-                  </div>
-                  <div className="flex items-start bg-red-50 p-4 rounded">
-                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" aria-hidden="true" />
-                    <p className="text-gray-700">{rec.feedback}</p>
+            <div className="mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Your Cybersecurity Assessment Results</h2>
+              
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Overall Security Score</h3>
+                  <div className="text-5xl font-bold mb-2" style={{ color: scoreColor }}>{scorePercentage}%</div>
+                  <div className="text-lg text-gray-600">
+                    {scorePercentage >= 80 ? 'Low Risk' : 
+                     scorePercentage >= 60 ? 'Moderate Risk' : 'High Risk'}
                   </div>
                 </div>
-              ))}
+                
+                <div className="flex justify-center">
+                  <PieChart width={200} height={200}>
+                    <Pie
+                      data={pieData}
+                      cx={100}
+                      cy={100}
+                      innerRadius={60}
+                      outerRadius={80}
+                      paddingAngle={2}
+                      dataKey="value"
+                      startAngle={90}
+                      endAngle={-270}
+                    >
+                      {pieData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </div>
+              </div>
+            </div>
+
+            {result.recommendations.length > 0 ? (
+              <div className="mb-8">
+                <h3 className="text-2xl font-semibold text-gray-900 mb-6">Areas for Improvement</h3>
+                <div className="space-y-6">
+                  {result.recommendations.map((rec, index) => (
+                    <div key={index} className="bg-gray-50 p-6 rounded-lg">
+                      <h4 className="text-lg font-medium text-gray-900 mb-3">Question {rec.questionNumber}: {rec.question}</h4>
+                      <div className="mb-4">
+                        <span className="text-sm font-medium text-gray-500">Your Answer:</span>
+                        <p className="mt-1 text-gray-700">{rec.userAnswer}</p>
+                      </div>
+                      <div className="bg-red-50 p-4 rounded">
+                        <div className="flex items-start">
+                          <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 mr-3 flex-shrink-0" />
+                          <div>
+                            <span className="font-medium text-red-600">Recommendation:</span>
+                            <p className="mt-1 text-gray-700">{rec.feedback}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="mb-8 bg-green-50 p-6 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <Shield className="w-6 h-6 text-green-600" />
+                  <h3 className="text-xl font-semibold text-gray-900">Great job!</h3>
+                </div>
+                <p className="mt-2 text-gray-700">
+                  Your cybersecurity practices are excellent. Keep up the good work and continue to stay vigilant against evolving threats.
+                </p>
+              </div>
+            )}
+
+            <div className="mt-12 bg-blue-50 p-6 rounded-lg">
+              <div className="flex items-start space-x-4">
+                <MessageSquareText className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Have questions about your results?
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Our Cybersecurity Advisor can provide detailed guidance on implementing these recommendations and improving your security posture.
+                  </p>
+                  <a
+                    href="/advisor"
+                    className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
+                  >
+                    Chat with Advisor
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -362,64 +398,70 @@ export default function SimpleQuiz() {
     );
   }
 
-  const question = assessmentQuestions[currentQuestion];
-  const currentAnswer = answers[currentQuestion];
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       <header className="bg-white shadow-sm mb-8">
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-3">
-            <Shield className="w-8 h-8 text-blue-600" aria-hidden="true" />
-            <h1 className="text-2xl font-bold text-gray-900">Cybersecurity Self-Assessment</h1>
+            <Shield className="w-8 h-8 text-blue-600" />
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Cybersecurity Self-Assessment</h1>
+              <p className="mt-1 text-sm text-gray-600">
+                Answer 10 questions to evaluate your current security practices
+              </p>
+            </div>
           </div>
-          <p className="mt-2 text-sm text-gray-600">
-            Answer a few questions to evaluate your organization's security posture and get personalized recommendations.
-          </p>
+          <button
+            onClick={onBack}
+            className="mt-4 text-blue-600 hover:text-blue-800 flex items-center"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Back to Home
+          </button>
         </div>
       </header>
 
       <div className="max-w-3xl mx-auto px-4 pb-12">
         <div className="bg-white rounded-lg shadow-lg p-8">
+          {/* Progress bar */}
           <div className="mb-8">
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center mb-2">
               <h2 className="text-sm font-medium text-gray-600">
                 Question {currentQuestion + 1} of {assessmentQuestions.length}
               </h2>
               <span className="text-sm font-medium text-gray-600">
-                {question.category}
+                {assessmentQuestions[currentQuestion].category}
               </span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2.5">
               <div
                 className="bg-blue-600 h-2.5 rounded-full"
                 style={{ width: `${((currentQuestion + 1) / assessmentQuestions.length) * 100}%` }}
-                aria-hidden="true"
               ></div>
             </div>
           </div>
 
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">{question.question}</h3>
+          {/* Question */}
+          <h3 className="text-xl font-semibold text-gray-900 mb-6">{assessmentQuestions[currentQuestion].question}</h3>
 
-          <div className="space-y-4" role="radiogroup" aria-labelledby="question-label">
-            {question.answers.map((answer, index) => (
+          {/* Options */}
+          <div className="space-y-4">
+            {assessmentQuestions[currentQuestion].answers.map((answer, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswer(index)}
                 className={`w-full text-left p-4 rounded-lg border ${
-                  currentAnswer === index
+                  answers[currentQuestion] === index
                     ? 'border-blue-500 bg-blue-50'
                     : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'
                 } transition-colors duration-300`}
-                role="radio"
-                aria-checked={currentAnswer === index}
-                aria-label={answer.text}
               >
                 {answer.text}
               </button>
             ))}
           </div>
 
+          {/* Navigation */}
           <div className="mt-8 flex justify-between">
             <button
               onClick={handlePrevious}
@@ -429,38 +471,25 @@ export default function SimpleQuiz() {
                   ? 'text-gray-400 cursor-not-allowed'
                   : 'text-blue-600 hover:text-blue-800'
               }`}
-              aria-label="Go to previous question"
             >
-              <ArrowLeft className="w-5 h-5 mr-2" aria-hidden="true" />
+              <ArrowLeft className="w-5 h-5 mr-2" />
               Previous
             </button>
             <div className="text-gray-600">
               {currentQuestion + 1} / {assessmentQuestions.length}
             </div>
-            {currentQuestion === assessmentQuestions.length - 1 && answers.every(a => a !== -1) ? (
-              <button
-                onClick={() => calculateResults(answers)}
-                className="flex items-center justify-center bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
-                aria-label="Show assessment results"
-              >
-                <span className="mr-2">Show Results</span>
-                <ArrowRight className="w-5 h-5" aria-hidden="true" />
-              </button>
-            ) : (
-              <button
-                onClick={handleNext}
-                disabled={currentAnswer === -1}
-                className={`flex items-center ${
-                  currentAnswer === -1
-                    ? 'text-gray-400 cursor-not-allowed'
-                    : 'text-blue-600 hover:text-blue-800'
-                }`}
-                aria-label="Go to next question"
-              >
-                Next
-                <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />
-              </button>
-            )}
+            <button
+              onClick={handleNext}
+              disabled={answers[currentQuestion] === -1}
+              className={`flex items-center ${
+                answers[currentQuestion] === -1
+                  ? 'text-gray-400 cursor-not-allowed'
+                  : 'text-blue-600 hover:text-blue-800'
+              }`}
+            >
+              Next
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </button>
           </div>
         </div>
       </div>
