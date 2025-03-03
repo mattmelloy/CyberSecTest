@@ -1,0 +1,10 @@
+{
+  "routes": [
+    { "src": "/simple-assessment", "dest": "/" },
+    { "src": "/advanced-assessment", "dest": "/" },
+    { "src": "/advisor", "dest": "/" },
+    { "src": "/privacy-policy", "dest": "/" },
+    { "src": "/terms", "dest": "/" },
+    { "src": "/(.*)", "dest": "/" }
+  ]
+}
