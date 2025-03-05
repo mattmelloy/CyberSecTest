@@ -122,6 +122,21 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // Update canonical tag based on current route
+    const canonicalUrl = `https://cybersectest.com${location.pathname}`;
+    let canonicalTag = document.querySelector('link[rel="canonical"]');
+    
+    if (!canonicalTag) {
+      canonicalTag = document.createElement('link');
+      canonicalTag.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalTag);
+    }
+    
+    // Ensure trailing slash for root path
+    canonicalTag.setAttribute('href', 
+      location.pathname === '/' ? 'https://cybersectest.com/' : canonicalUrl
+    );
+
     // Add structured data for SEO
     const structuredData = {
       "@context": "https://schema.org",
@@ -136,15 +151,20 @@ function App() {
       }
     };
 
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(structuredData);
-    document.head.appendChild(script);
+    let scriptTag = document.querySelector('script[type="application/ld+json"]');
+    if (scriptTag) {
+      scriptTag.textContent = JSON.stringify(structuredData);
+    } else {
+      scriptTag = document.createElement('script');
+      scriptTag.type = 'application/ld+json';
+      scriptTag.textContent = JSON.stringify(structuredData);
+      document.head.appendChild(scriptTag);
+    }
 
     return () => {
-      document.head.removeChild(script);
+      // Clean up is not needed for canonical tag as it will be updated on next route
     };
-  }, []);
+  }, [location]);
 
   const scrollToTools = () => {
     toolsRef.current?.scrollIntoView({ behavior: 'smooth' });
