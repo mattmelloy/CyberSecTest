@@ -1,34 +1,78 @@
-import React, { RefObject } from 'react';
+'use client';
+
+import React from 'react';
 import { Shield, FileCheck2, MessageSquareText, ChevronDown, AlertCircle, CheckCircle2, ArrowRight, Users, Zap, AlertOctagon, DollarSign, Target, ChevronRight, ExternalLink, PenTool as Tool } from 'lucide-react';
+import Link from 'next/link';
 
-interface FAQ {
-  question: string;
-  answer: {
-    text: string;
-    advice: string;
-    recommendation: string;
+const faqs = [
+  {
+    question: "What are the most common cybersecurity risks for small businesses?",
+    answer: {
+      text: "Common risks include phishing scams, ransomware, weak passwords, and unpatched software.",
+      advice: "Regularly train staff, use strong passwords with multi-factor authentication, and keep software updated.",
+      recommendation: "Consider security suites like Bitdefender or Norton for comprehensive protection."
+    }
+  },
+  {
+    question: "How can I protect my business from phishing attacks?",
+    answer: {
+      text: "Phishing attacks use deceptive emails to steal sensitive information.",
+      advice: "Educate employees to verify senders, use spam filters, and run regular simulated phishing tests.",
+      recommendation: "Tools such as Barracuda Email Security can help filter out suspicious emails."
+    }
+  },
+  {
+    question: "Do I need antivirus software for my small business?",
+    answer: {
+      text: "Yes, antivirus software helps detect and block malicious software before it causes harm.",
+      advice: "Install reputable antivirus software on all devices and update it regularly.",
+      recommendation: "Products like McAfee Small Business Security or Kaspersky Small Office Security are good choices."
+    }
+  },
+  {
+    question: "What is ransomware, and how can I prevent it?",
+    answer: {
+      text: "Ransomware is malware that locks your data and demands payment for its release.",
+      advice: "Back up data frequently, update all software, and avoid clicking on suspicious links or attachments.",
+      recommendation: "Consider additional protection with solutions like Malwarebytes for malware detection."
+    }
+  },
+  {
+    question: "What is two-factor authentication (2FA), and should I use it?",
+    answer: {
+      text: "2FA adds an extra verification step—such as a text code or authenticator app—when logging in.",
+      advice: "Enable 2FA on all critical accounts to add a strong layer of security.",
+      recommendation: "Free apps like Google Authenticator or Authy are easy to set up."
+    }
+  }
+];
+
+export default function HomePage() {
+  const [showScrollIndicator, setShowScrollIndicator] = React.useState(true);
+  const [expandedFAQ, setExpandedFAQ] = React.useState<number | null>(null);
+  const toolsRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollIndicator(false);
+      } else {
+        setShowScrollIndicator(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTools = () => {
+    toolsRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-}
 
-interface HomePageProps {
-  faqs: FAQ[];
-  expandedFAQ: number | null;
-  toggleFAQ: (index: number) => void;
-  showScrollIndicator: boolean;
-  scrollToTools: () => void;
-  toolsRef: RefObject<HTMLDivElement>;
-  onNavigate: (path: string) => void;
-}
+  const toggleFAQ = (index: number) => {
+    setExpandedFAQ(expandedFAQ === index ? null : index);
+  };
 
-export default function HomePage({ 
-  faqs, 
-  expandedFAQ, 
-  toggleFAQ, 
-  showScrollIndicator, 
-  scrollToTools, 
-  toolsRef,
-  onNavigate
-}: HomePageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Hero Section */}
@@ -52,19 +96,19 @@ export default function HomePage({
               Protect your business from hackers and cyber attacks with free and easy to understand IT security advice.
             </p>
             <div className="mt-8 flex flex-col items-center space-y-4">
-              <a 
+              <Link 
                 href="/simple-assessment"
                 className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl"
               >
                 Start Your Free Assessment
-              </a>
+              </Link>
               <p className="text-sm text-gray-200 font-bold">
                 It's time to understand your business risks and how you can prevent being hacked!
               </p>
             </div>
           </div>
         </div>
-        {/* Scroll Indicator with accessibility improvements */}
+        {/* Scroll Indicator */}
         <button
           onClick={scrollToTools}
           className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 transition-opacity duration-500 ${
@@ -170,12 +214,12 @@ export default function HomePage({
               <p className="text-gray-600 mb-4">
                 A 5 minute 10-question assessment to evaluate your basic cybersecurity practices.
               </p>
-              <a
+              <Link
                 href="/simple-assessment"
                 className="w-full block text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300"
               >
                 Start Assessment
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -191,12 +235,12 @@ export default function HomePage({
               <p className="text-gray-600 mb-4">
                 Detailed assessment based on NIST 800-53 framework for IT professionals.
               </p>
-              <a
+              <Link
                 href="/advanced-assessment"
                 className="w-full block text-center bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors duration-300"
               >
                 Start Assessment
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -212,12 +256,12 @@ export default function HomePage({
               <p className="text-gray-600 mb-4">
                 Do you have more questions? Get clear, reliable answers to your security questions quickly.
               </p>
-              <a
+              <Link
                 href="/advisor"
                 className="w-full block text-center bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300"
               >
                 Start Chatting
-              </a>
+              </Link>
             </div>
           </div>
           
@@ -233,12 +277,12 @@ export default function HomePage({
               <p className="text-gray-600 mb-4">
                 Discover free online tools to help protect your business from cyber threats and improve your security posture.
               </p>
-              <a
+              <Link
                 href="/freesecuritytools"
                 className="w-full block text-center bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 transition-colors duration-300"
               >
                 View Free Tools
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -326,13 +370,13 @@ export default function HomePage({
                     </div>
                   ))}
                 </div>
-                <a
+                <Link
                   href="/simple-assessment"
                   className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md"
                 >
                   Start Assessment Now
                   <ArrowRight className="w-5 h-5 ml-2" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -372,13 +416,13 @@ export default function HomePage({
           <p className="text-xl text-blue-100 mb-8">
             Take control of your business's security with our free, no-risk assessment.
           </p>
-          <a
+          <Link
             href="/simple-assessment"
             className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-colors duration-300 shadow-lg"
           >
             Start Your Free Assessment Now
             <ArrowRight className="w-6 h-6 ml-2" />
-          </a>
+          </Link>
         </section>
 
         {/* About Section */}
@@ -412,19 +456,19 @@ export default function HomePage({
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Main Pages</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="/" className="text-blue-600 hover:text-blue-800 hover:underline">Home</a>
+                  <Link href="/" className="text-blue-600 hover:text-blue-800 hover:underline">Home</Link>
                 </li>
                 <li>
-                  <a href="/simple-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Simple Security Assessment</a>
+                  <Link href="/simple-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Simple Security Assessment</Link>
                 </li>
                 <li>
-                  <a href="/advanced-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">NIST 800-53 Assessment</a>
+                  <Link href="/advanced-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">NIST 800-53 Assessment</Link>
                 </li>
                 <li>
-                  <a href="/advisor" className="text-blue-600 hover:text-blue-800 hover:underline">Cybersecurity Advisor</a>
+                  <Link href="/advisor" className="text-blue-600 hover:text-blue-800 hover:underline">Cybersecurity Advisor</Link>
                 </li>
                 <li>
-                  <a href="/freesecuritytools" className="text-blue-600 hover:text-blue-800 hover:underline">Free Security Tools</a>
+                  <Link href="/freesecuritytools" className="text-blue-600 hover:text-blue-800 hover:underline">Free Security Tools</Link>
                 </li>
               </ul>
             </div>
@@ -432,10 +476,10 @@ export default function HomePage({
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Legal Information</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="/privacy-policy" className="text-blue-600 hover:text-blue-800 hover:underline">Privacy Policy</a>
+                  <Link href="/privacy-policy" className="text-blue-600 hover:text-blue-800 hover:underline">Privacy Policy</Link>
                 </li>
                 <li>
-                  <a href="/terms" className="text-blue-600 hover:text-blue-800 hover:underline">Terms of Service</a>
+                  <Link href="/terms" className="text-blue-600 hover:text-blue-800 hover:underline">Terms of Service</Link>
                 </li>
               </ul>
             </div>
@@ -462,13 +506,13 @@ export default function HomePage({
           <div className="text-center text-gray-600">
             <p>© 2025 Cybersecurity Assessment Tool. All rights reserved.</p>
             <div className="mt-2 flex justify-center space-x-4">
-              <a href="/" className="text-blue-600 hover:text-blue-800 hover:underline">Home</a>
-              <a href="/simple-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Simple Assessment</a>
-              <a href="/advanced-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Advanced Assessment</a>
-              <a href="/advisor" className="text-blue-600 hover:text-blue-800 hover:underline">Advisor</a>
-              <a href="/freesecuritytools" className="text-blue-600 hover:text-blue-800 hover:underline">Free Tools</a>
-              <a href="/privacy-policy" className="text-blue-600 hover:text-blue-800 hover:underline">Privacy Policy</a>
-              <a href="/terms" className="text-blue-600 hover:text-blue-800 hover:underline">Terms of Service</a>
+              <Link href="/" className="text-blue-600 hover:text-blue-800 hover:underline">Home</Link>
+              <Link href="/simple-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Simple Assessment</Link>
+              <Link href="/advanced-assessment" className="text-blue-600 hover:text-blue-800 hover:underline">Advanced Assessment</Link>
+              <Link href="/advisor" className="text-blue-600 hover:text-blue-800 hover:underline">Advisor</Link>
+              <Link href="/freesecuritytools" className="text-blue-600 hover:text-blue-800 hover:underline">Free Tools</Link>
+              <Link href="/privacy-policy" className="text-blue-600 hover:text-blue-800 hover:underline">Privacy Policy</Link>
+              <Link href="/terms" className="text-blue-600 hover:text-blue-800 hover:underline">Terms of Service</Link>
             </div>
           </div>
         </footer>
