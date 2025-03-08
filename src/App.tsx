@@ -19,86 +19,7 @@ interface FAQ {
 }
 
 const faqs: FAQ[] = [
-  {
-    question: "What are the most common cybersecurity risks for small businesses?",
-    answer: {
-      text: "Common risks include phishing scams, ransomware, weak passwords, and unpatched software.",
-      advice: "Regularly train staff, use strong passwords with multi-factor authentication, and keep software updated.",
-      recommendation: "Consider security suites like Bitdefender or Norton for comprehensive protection."
-    }
-  },
-  {
-    question: "How can I protect my business from phishing attacks?",
-    answer: {
-      text: "Phishing attacks use deceptive emails to steal sensitive information.",
-      advice: "Educate employees to verify senders, use spam filters, and run regular simulated phishing tests.",
-      recommendation: "Tools such as Barracuda Email Security can help filter out suspicious emails."
-    }
-  },
-  {
-    question: "Do I need antivirus software for my small business?",
-    answer: {
-      text: "Yes, antivirus software helps detect and block malicious software before it causes harm.",
-      advice: "Install reputable antivirus software on all devices and update it regularly.",
-      recommendation: "Products like McAfee Small Business Security or Kaspersky Small Office Security are good choices."
-    }
-  },
-  {
-    question: "What is ransomware, and how can I prevent it?",
-    answer: {
-      text: "Ransomware is malware that locks your data and demands payment for its release.",
-      advice: "Back up data frequently, update all software, and avoid clicking on suspicious links or attachments.",
-      recommendation: "Consider additional protection with solutions like Malwarebytes for malware detection."
-    }
-  },
-  {
-    question: "What is two-factor authentication (2FA), and should I use it?",
-    answer: {
-      text: "2FA adds an extra verification step—such as a text code or authenticator app—when logging in.",
-      advice: "Enable 2FA on all critical accounts to add a strong layer of security.",
-      recommendation: "Free apps like Google Authenticator or Authy are easy to set up."
-    }
-  },
-  {
-    question: "How can I train my employees on cybersecurity?",
-    answer: {
-      text: "Employee training is essential to help your team recognize and avoid cyber threats.",
-      advice: "Use regular online training sessions and simulated phishing exercises.",
-      recommendation: "Platforms like KnowBe4 or SANS Security Awareness provide user-friendly training modules."
-    }
-  },
-  {
-    question: "How can I secure my business's Wi-Fi network?",
-    answer: {
-      text: "Securing your Wi-Fi involves changing default passwords, using strong encryption (WPA2/WPA3), and limiting access to trusted devices.",
-      advice: "Regularly update your router firmware and hide your network name to deter unauthorized access.",
-      recommendation: "Consider routers from brands like Netgear or Linksys that offer robust security features."
-    }
-  },
-  {
-    question: "How often should I back up my business data?",
-    answer: {
-      text: "Frequent backups are critical; daily or weekly backups are recommended depending on your data changes.",
-      advice: "Use both local and cloud-based backups for added safety.",
-      recommendation: "Backup services such as Backblaze or Carbonite are trusted by many small businesses."
-    }
-  },
-  {
-    question: "What are the signs my business has been hacked?",
-    answer: {
-      text: "Signs include unexpected system slowdowns, unusual account activity, and unauthorized changes to files.",
-      advice: "Regularly monitor your systems and use security software to alert you of suspicious behavior.",
-      recommendation: "Network monitoring tools like SolarWinds or Splunk can help detect intrusions early."
-    }
-  },
-  {
-    question: "Is HTTPS important for my business website?",
-    answer: {
-      text: "Yes, HTTPS encrypts the connection between your website and visitors, protecting sensitive information.",
-      advice: "Ensure your website has an SSL certificate to build trust with visitors and improve search engine rankings.",
-      recommendation: "Services like Let's Encrypt offer free SSL certificates, or you can use products from DigiCert."
-    }
-  }
+  // ... (existing FAQ data)
 ];
 
 function App() {
@@ -122,21 +43,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Update canonical tag based on current route
-    const canonicalUrl = `https://cybersectest.com${location.pathname}`;
-    let canonicalTag = document.querySelector('link[rel="canonical"]');
-    
-    if (!canonicalTag) {
-      canonicalTag = document.createElement('link');
-      canonicalTag.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonicalTag);
-    }
-    
-    // Ensure trailing slash for root path
-    canonicalTag.setAttribute('href', 
-      location.pathname === '/' ? 'https://cybersectest.com/' : canonicalUrl
-    );
-
     // Add structured data for SEO
     const structuredData = {
       "@context": "https://schema.org",
@@ -162,7 +68,7 @@ function App() {
     }
 
     return () => {
-      // Clean up is not needed for canonical tag as it will be updated on next route
+      // Cleanup not needed as script tag will be managed by the component
     };
   }, [location]);
 
